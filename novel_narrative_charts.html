@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>Novel Narrative Charts</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script src="d3.v3.js"></script>
+        <script src="narrative.js"></script>
+        <style type="text/css">
+            * {
+                font-family: system-ui;
+            }
+        </style>
+    </head>
+    <body>
+        {% for i in range(books | length) %}
+            <h1>{{ books[i].title }}</h1>
+            <p id="chart{{ i }}"></p>
+        {% endfor %}
+        <script type="text/javascript">
+        {% for i in range(books | length) %}
+            draw_chart('chart{{ i }}',
+                       {{ books[i].scenes }},
+                       {{ books[i].characters }},
+                       true,
+                       false,
+                       false);
+        {% endfor %}
+        </script>
+    </body>
+</html>
