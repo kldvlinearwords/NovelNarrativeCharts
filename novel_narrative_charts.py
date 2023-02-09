@@ -196,6 +196,7 @@ class Chapter(object):
 
 BOOK_ARG = '--book'
 CHARACTER_GROUP_ARG = '--character_group='
+CHAPTER_REGEX_ARG = '--chapter_regex='
 FILENAME_ARG = '--filename='
 TEMPLATE_FILE = 'novel_narrative_charts.html'
 TITLE_ARG = '--title='
@@ -209,7 +210,7 @@ book_args = [sys.argv[book_ixes[i] + 1 : book_ixes[i + 1]] for i in range(len(bo
 books = []
 for book_arg in book_args:
   filename = None
-  title = None
+  title = 'Default title'
   characters = []
   group_id = 0
   for arg in book_arg:
@@ -225,7 +226,14 @@ for book_arg in book_args:
       title = arg[len(TITLE_ARG):]
     elif arg.startswith(FILENAME_ARG):
       filename = arg[len(FILENAME_ARG):]
+    elif arg.startswith(CHAPTER_REGEX_ARG):
+      CHAPTER_REGEX = re.compile(arg[len(CHAPTER_REGEX_ARG):])
 
+  if not filename:
+    print('*** ERROR: Missing filename. ***')
+    sys.exit(0)
+
+  print('\nCreating book:', title)
   books.append(
       Book(
           title=title,
