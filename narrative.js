@@ -1,6 +1,7 @@
 // Link dimensions
 var link_width = 1.8;
 var link_gap = 2;
+// var link_gap = 2;
 
 var node_width = 10; // Set to panel_width later
 var color = d3.scale.category10();
@@ -10,9 +11,11 @@ var raw_chart_width = 1000;
 // (Sparse groups and group ordering already
 // provide a lot of whitespace though.)
 var group_gap = 0;
+// var group_gap = 10;
 
 // This is used for more than just text height.
-var text_height = 8;
+// var text_height = 8;
+var text_height = 12;
 
 // If a name's x is smaller than this value * chart width,
 // the name appears at the start of the chart, as 
@@ -40,7 +43,8 @@ var sw_panels = 3;
 
 // Longest name in pixels to make space at the beginning 
 // of the chart. Can calculate but this works okay.
-var longest_name = 115;
+// var longest_name = 115;
+var longest_name = 160;
 
 // True: When deciding on which group to put a scene in,
 // if there's a tie, break the tie based on which
@@ -767,7 +771,7 @@ function draw_chart(name, jscenes, jcharacters, tie_breaker, center_sort, collap
 
     var xchars = jcharacters;
     // Calculate chart height based on the number of characters
-    var raw_chart_height = 480;
+    var raw_chart_height = 600;
     var height = raw_chart_height - margin.top - margin.bottom;
 
     var svg = d3.select("#" + name).append("svg")
@@ -839,6 +843,7 @@ function draw_chart(name, jscenes, jcharacters, tie_breaker, center_sort, collap
 
     calculate_link_positions(scenes, chars, groups, char_map);
 
+    // console.log(`height: ${height}, raw_chart_height: ${raw_chart_height}`);
     height = groups[groups.length-1].max + group_gap*5;
     raw_chart_height = height + margin.top + margin.bottom;
     d3.select('svg#' + name).style("height", raw_chart_height);
